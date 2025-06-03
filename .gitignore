@@ -1,0 +1,45 @@
+# Arquivos de configurações do Eclipse
+.classpath
+.project
+.settings/
+
+# Pastas de build e output
+/bin/
+/target/ # Para projetos Maven e Gradle
+/build/  # Para projetos Gradle
+
+# Arquivos JAR gerados
+*.jar
+*.war
+*.ear
+
+# Arquivos de logs
+*.log
+
+# Arquivos temporários do sistema operacional
+*~
+*.swp
+*.bak
+.DS_Store # macOS
+Thumbs.db # Windows
+
+# Arquivos de configurações de IDE específicas de usuário
+.idea/ # Para projetos IntelliJ IDEA (se alguém no time usar)
+*.iml # Para projetos IntelliJ IDEA
+
+# Arquivos de configurações do Maven/Gradle
+.mvn/wrapper/maven-wrapper.jar
+.gradle/
+!gradle/wrapper/gradle-wrapper.jar # Mantenha o wrapper do Gradle se usar
+!gradle-wrapper.properties # Mantenha o wrapper do Gradle se usar
+
+# Arquivos de dependências externas (se não estiverem no classpath gerado pelo Maven/Gradle)
+/lib/ # Se você tem bibliotecas externas não gerenciadas por Maven/Gradle
+/out/ # Outra pasta de output comum em alguns cenários
+
+# Arquivos de configurações de ambiente (senhas, chaves de API, etc.)
+*.properties.local
+*.yml.local
+*.json.local
+.env
+.env.*

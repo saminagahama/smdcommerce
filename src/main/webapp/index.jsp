@@ -1,0 +1,385 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja Virtual</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --text-color: #333;
+            --text-light: #7f8c8d;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1.5rem 2rem;
+            text-align: center;
+            box-shadow: var(--box-shadow);
+        }
+        
+        header h1 {
+            font-size: 2.2rem;
+            margin: 0;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        
+        nav {
+            background-color: var(--dark-color);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+        }
+        
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            text-decoration: none;
+        }
+        
+        nav a::before {
+            content: "🛒";
+            margin-right: 8px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        
+        .main-content {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .sidebar {
+            width: 320px;
+            flex-shrink: 0;
+        }
+        
+        .login-area {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 2rem;
+        }
+        
+        .login-area h3 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.4rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .login-area h3::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+        
+        .login-area label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+        
+        .login-area input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .login-area input:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+        
+        .login-area button {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: var(--success-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 0.5rem;
+        }
+        
+        .login-area button:hover {
+            background-color: #219653;
+            transform: translateY(-2px);
+        }
+        
+        .login-area a {
+            display: block;
+            text-align: center;
+            margin-top: 1rem;
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .login-area a:hover {
+            text-decoration: underline;
+            color: #2980b9;
+        }
+        
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        h2::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+        
+        .product-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .product-item {
+            background-color: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .product-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .product-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .product-info {
+            padding: 1.2rem;
+        }
+        
+        .product-item h4 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.1rem;
+            color: var(--dark-color);
+            font-weight: 600;
+        }
+        
+        .product-item .price {
+            display: block;
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .product-item .price::before {
+            content: "R$ ";
+        }
+        
+        .product-item button {
+            width: 100%;
+            padding: 0.7rem;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .product-item button:hover {
+            background-color: #2980b9;
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                padding: 0 1rem;
+            }
+            
+            .sidebar {
+                width: 100%;
+                order: -1;
+                margin-bottom: 2rem;
+            }
+            
+            nav {
+                justify-content: center;
+            }
+            
+            .product-list {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Minha Loja Virtual</h1>
+    </header>
+
+    <nav>
+        <a href="/smd-web-tf/views/carrinho.jsp">Meu Carrinho</a>
+    </nav>
+
+    <div class="container">
+        <div class="main-content">
+            <h2>Produtos Disponíveis</h2>
+            <div class="product-list">
+            	
+            </div>
+        </div>
+
+        <aside class="sidebar">
+            <div class="login-area">
+                <h3>Login</h3>
+                <form id="login-form" action="Login" method="post">
+                    <label for="login">E-mail ou usuário:</label>
+                    <input type="text" id="login" name="login" required placeholder="Digite seu e-mail ou usuário">
+
+                    <label for="senha">Senha:</label>
+                    <input type="password" id="senha" name="senha" required placeholder="Digite sua senha">
+
+                    <button type="submit" value="">Entrar</button>
+                    <a href="/smd-web-tf/views/cadastro.jsp">Não tem conta? Cadastre-se</a>
+                </form>
+            </div>
+        </aside>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Minha Loja Virtual - Todos os direitos reservados</p>
+    </footer>
+
+    <script>
+	    function carregarListaAlunos() {
+	        var xhr = new XMLHttpRequest(); // Cria um novo objeto XMLHttpRequest
+	        xhr.open("GET", "alunos?action=listarFragmento", true); // Configura a requisição GET
+	        xhr.onreadystatechange = function () {
+	            if (xhr.readyState === 4 && xhr.status === 200) {
+	                // Se a requisição foi bem-sucedida
+	                document.getElementById("listaAlunosContainer").innerHTML = xhr.responseText;
+	            } else if (xhr.readyState === 4) {
+	                // Em caso de erro
+	                document.getElementById("listaAlunosContainer").innerHTML = "<p>Erro ao carregar lista de alunos.</p>";
+	                console.error("Erro AJAX: " + xhr.status + " - " + xhr.statusText);
+	            }
+	        };
+	        xhr.send(); // Envia a requisição
+	    }
+	    
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            alert('Funcionalidade de login ainda não implementada.');
+        });
+
+        document.querySelectorAll('.product-item button').forEach(button => {
+            button.addEventListener('click', () => {
+                const product = button.closest('.product-item').querySelector('h4').textContent;
+                button.textContent = 'Adicionado ✓';
+                button.style.backgroundColor = 'var(--success-color)';
+                
+                setTimeout(() => {
+                    button.textContent = 'Adicionar ao Carrinho';
+                    button.style.backgroundColor = 'var(--secondary-color)';
+                }, 2000);
+            });
+        });
+    </script>
+
+</body>
+</html>
