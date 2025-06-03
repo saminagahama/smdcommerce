@@ -319,12 +319,16 @@
     <div class="container">
         <div class="main-content">
             <h2>Produtos Disponíveis</h2>
-            <div class="product-list">
+            <div id="products">
             	
             </div>
         </div>
 
         <aside class="sidebar">
+        <%
+		    Usuario usuario = (Usuario) session.getAttribute("usuario");
+		    if (usuario != null) {
+		%>
             <div class="login-area">
                 <h3>Login</h3>
                 <form id="login-form" action="Login" method="post">
@@ -338,6 +342,19 @@
                     <a href="/smd-web-tf/views/cadastro.jsp">Não tem conta? Cadastre-se</a>
                 </form>
             </div>
+        <%
+		    } else {
+        %>
+        <!-- Menu do usuário ----------------- -->
+        <!-- Minha conta -->
+        <!-- Meus pedidos -->
+        <!-- Sair -->
+        <!-- Menu do admin ------------------- -->
+        <!-- Gerenciar produto -->
+        <%
+		    }
+		 %>
+            
         </aside>
     </div>
 
@@ -346,16 +363,14 @@
     </footer>
 
     <script>
-	    function carregarListaAlunos() {
-	        var xhr = new XMLHttpRequest(); // Cria um novo objeto XMLHttpRequest
-	        xhr.open("GET", "alunos?action=listarFragmento", true); // Configura a requisição GET
+	    function carregarListaProdutos() {
+	        var xhr = new XMLHttpRequest();
+	        xhr.open("GET", "produtos?action=listar", true);
 	        xhr.onreadystatechange = function () {
 	            if (xhr.readyState === 4 && xhr.status === 200) {
-	                // Se a requisição foi bem-sucedida
-	                document.getElementById("listaAlunosContainer").innerHTML = xhr.responseText;
+	                document.getElementById("products").innerHTML = xhr.responseText;
 	            } else if (xhr.readyState === 4) {
-	                // Em caso de erro
-	                document.getElementById("listaAlunosContainer").innerHTML = "<p>Erro ao carregar lista de alunos.</p>";
+	                document.getElementById("products").innerHTML = "<p>Erro ao carregar lista de produtos.</p>";
 	                console.error("Erro AJAX: " + xhr.status + " - " + xhr.statusText);
 	            }
 	        };
@@ -379,6 +394,8 @@
                 }, 2000);
             });
         });
+        
+        window.onload = carregarListaProdutos;
     </script>
 
 </body>
