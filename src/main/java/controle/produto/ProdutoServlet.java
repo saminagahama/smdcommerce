@@ -44,8 +44,12 @@ public class ProdutoServlet extends HttpServlet {
 	private void listarTodosProdutos(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 		List<Produto> produtos = ProdutoDAO.listar();
-		request.setAttribute("produtos", produtos);
 		response.setContentType("text/html;charset=UTF-8");
+		if (produtos == null || produtos.isEmpty()) {
+			response.getWriter().write("");
+			return;
+		}
+		request.setAttribute("produtos", produtos);
         RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/gradeproduto.jsp");
         dispatcher.include(request, response);
 	}

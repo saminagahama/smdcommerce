@@ -15,15 +15,14 @@ import javax.servlet.http.HttpSession;
  * Classe de controle para realizar o logout de um usuário
  */
 public class LogoutServlet extends HttpServlet {
-
     @Override
-    protected void service(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        HttpSession sessao = request.getSession();
-        sessao.invalidate();
-        request.setAttribute("mensagem", "Sua sessão foi encerrada");
-        RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-        rd.forward(request, response);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+        HttpSession sessao = request.getSession(false);
+        if (sessao != null) {
+            sessao.invalidate();
+        }
+        response.sendRedirect(request.getContextPath() + "/index.jsp");
     }
 
 }

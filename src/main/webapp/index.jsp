@@ -1,4 +1,3 @@
-
 <%@page import="modelo.usuario.Usuario"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -25,17 +24,15 @@
     <div class="container">
         <div class="main-content">
             <h2>Produtos Disponíveis</h2>
-            <div id="products">
-            	
-            </div>
+            <div id="product-list"></div>
         </div>
 
         <aside class="sidebar">
         <%
-		    Usuario usuario = (Usuario) session.getAttribute("usuario");
-		    if (usuario != null) {
-		%>
-            <div class="login-area">
+            Usuario usuario = (Usuario) session.getAttribute("usuario");
+            if (usuario == null) {
+        %>
+            <div class="login-area" id="login-area">
                 <h3>Login</h3>
                 <form id="login-form" action="Login" method="post">
                     <label for="login">E-mail ou usuário:</label>
@@ -47,19 +44,11 @@
                     <button type="submit" value="">Entrar</button>
                     <a href="/smd-web-tf/views/cadastro.jsp">Não tem conta? Cadastre-se</a>
                 </form>
+                <div id="mensagem"></div>
             </div>
         <%
-		    } else {
+            }
         %>
-        <!-- Menu do usuário ----------------- -->
-        <!-- Minha conta -->
-        <!-- Meus pedidos -->
-        <!-- Sair -->
-        <!-- Menu do admin ------------------- -->
-        <!-- Gerenciar produto -->
-        <%
-		    }
-		 %>
             
         </aside>
     </div>
@@ -69,24 +58,63 @@
     </footer>
 
     <script>
-	    function carregarListaProdutos() {
-	        var xhr = new XMLHttpRequest();
-	        xhr.open("GET", "produtos?action=listar", true);
-	        xhr.onreadystatechange = function () {
-	            if (xhr.readyState === 4 && xhr.status === 200) {
-	                document.getElementById("products").innerHTML = xhr.responseText;
-	            } else if (xhr.readyState === 4) {
-	                document.getElementById("products").innerHTML = "<p>Erro ao carregar lista de produtos.</p>";
-	                console.error("Erro AJAX: " + xhr.status + " - " + xhr.statusText);
-	            }
-	        };
-	        xhr.send(); // Envia a requisição
-	    }
-	    
-        document.getElementById('login-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            alert('Funcionalidade de login ainda não implementada.');
-        });
+        function carregarListaProdutos() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "produtos?action=listar", true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var conteudo = xhr.responseText.trim();
+                    if (!conteudo) {
+                        document.getElementById("product-list").innerHTML = "<p>Não há produtos disponíveis no momento.</p>";
+                    } else {
+                        document.getElementById("product-list").innerHTML = conteudo;
+                    }
+                } else if (xhr.readyState === 4) {
+                    document.getElementById("product-list").innerHTML = "<p>Erro ao carregar lista de produtos.</p>";
+                    console.error("Erro AJAX: " + xhr.status + " - " + xhr.statusText);
+                }
+            };
+            xhr.send(); // Envia a requisição
+        }
+        
+        function adicionarAoCarrinho(id) {
+        	
+        }
+        
+        // Só adiciona o listener se o formulário existir (usuário não logado)
+        if (document.getElementById('login-form')) {
+            document.getElementById('login-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                var form = event.target;
+                var formData = new FormData(form);
+
+                fetch('/smd-web-tf/Login', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(
+                    response => response.text()
+                )
+                .then(html => {
+                    console.log(html);
+                    if (html.includes('id="menu-usuario"')) {
+                        document.getElementById('login-area').remove();
+                        const aside = document.querySelector('.sidebar');
+                        const div = document.createElement('div');
+                        div.id = 'menu-area';
+                        div.innerHTML = html;
+                        aside.appendChild(div);
+                    } else {
+                        document.getElementById('mensagem').innerHTML = html;
+                    }
+                })
+                .catch(err => console.log(err));
+            });
+        }
 
         document.querySelectorAll('.product-item button').forEach(button => {
             button.addEventListener('click', () => {
