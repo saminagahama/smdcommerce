@@ -32,7 +32,7 @@
             Usuario usuario = (Usuario) session.getAttribute("usuario");
             if (usuario == null) {
         %>
-            <div class="login-area" id="login-area">
+            <div id="login-area">
                 <h3>Login</h3>
                 <form id="login-form" action="Login" method="post">
                     <label for="login">E-mail ou usuário:</label>
@@ -76,7 +76,7 @@
                     console.error("Erro AJAX: " + xhr.status + " - " + xhr.statusText);
                 }
             };
-            xhr.send(); // Envia a requisição
+            xhr.send();
         }
         
         function adicionarAoCarrinho(id) {

@@ -19,12 +19,9 @@ public class InserirCategoriaServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // entrada
         String descricao = request.getParameter("descricao");
-        // processamento
         CategoriaDAO categoriaDAO = new CategoriaDAO();
         boolean sucesso = categoriaDAO.inserir(descricao);
-        // saída
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             out.println("<!DOCTYPE html>");

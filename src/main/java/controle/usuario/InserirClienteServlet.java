@@ -1,11 +1,12 @@
 package controle.usuario;
 
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.annotation.MultipartConfig;
 import modelo.usuario.UsuarioDAO;
 
 /**
@@ -14,28 +15,28 @@ import modelo.usuario.UsuarioDAO;
  *
  * Classe de controle para inserir um novo cliente
  */
+@WebServlet("/CadastroCliente")
+@MultipartConfig
 public class InserirClienteServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // entrada
         String nome = request.getParameter("nome");
         String endereco = request.getParameter("endereco");
         String email = request.getParameter("email");
         String login = request.getParameter("login");
         String senha = request.getParameter("senha");
-        // processamento
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         boolean sucesso = usuarioDAO.inserirCliente(nome, endereco, email, login, senha);
-        // saída
+        response.setContentType("text/html; charset=UTF-8");
+        String mensagem;
         if (sucesso) {
-            request.setAttribute("mensagem", "Cliente inserido com sucesso");
+            mensagem = "<div class='mensagem-cadastro'>Cliente inserido com sucesso</div>";
         } else {
-            request.setAttribute("mensagem", "Não foi possível inserir o cliente");
+            mensagem = "<div class='mensagem-cadastro'>Não foi possível inserir o cliente</div>";
         }
-        RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-        rd.forward(request, response);
+        response.getWriter().write(mensagem);
     }
 
 }

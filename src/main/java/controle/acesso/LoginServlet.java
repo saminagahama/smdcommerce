@@ -42,6 +42,7 @@ public class LoginServlet extends HttpServlet {
             HttpSession sessao = request.getSession(true);
             sessao.setAttribute("usuario", usuario);
             if ("XMLHttpRequest".equals(request.getHeader("X-Requested-With"))) {
+                response.setContentType("text/html;charset=UTF-8");
                 RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/menu-usuario.jsp");
                 rd.include(request, response);
             } else {

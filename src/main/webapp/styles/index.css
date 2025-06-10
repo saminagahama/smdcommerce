@@ -93,7 +93,7 @@ nav a::before {
     flex-shrink: 0;
 }
 
-.login-area {
+aside.sidebar {
     background-color: white;
     padding: 1.5rem;
     border-radius: var(--border-radius);
@@ -101,7 +101,7 @@ nav a::before {
     margin-bottom: 2rem;
 }
 
-.login-area h3 {
+aside.sidebar h3 {
     color: var(--primary-color);
     margin-bottom: 1.5rem;
     font-size: 1.4rem;
@@ -110,7 +110,7 @@ nav a::before {
     padding-bottom: 0.5rem;
 }
 
-.login-area h3::after {
+aside.sidebar h3::after {
     content: "";
     position: absolute;
     bottom: 0;
@@ -121,14 +121,14 @@ nav a::before {
     background-color: var(--secondary-color);
 }
 
-.login-area label {
+aside.sidebar label {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 600;
     color: var(--dark-color);
 }
 
-.login-area input {
+aside.sidebar input {
     width: 100%;
     padding: 0.8rem 1rem;
     margin-bottom: 1rem;
@@ -138,13 +138,13 @@ nav a::before {
     transition: var(--transition);
 }
 
-.login-area input:focus {
+aside.sidebar input:focus {
     outline: none;
     border-color: var(--secondary-color);
     box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
 }
 
-.login-area button {
+aside.sidebar button {
     width: 100%;
     padding: 0.8rem;
     background-color: var(--success-color);
@@ -158,12 +158,12 @@ nav a::before {
     margin-top: 0.5rem;
 }
 
-.login-area button:hover {
+aside.sidebar button:hover {
     background-color: #219653;
     transform: translateY(-2px);
 }
 
-.login-area a {
+aside.sidebar a {
     display: block;
     text-align: center;
     margin-top: 1rem;
@@ -173,7 +173,7 @@ nav a::before {
     transition: var(--transition);
 }
 
-.login-area a:hover {
+aside.sidebar a:hover {
     text-decoration: underline;
     color: #2980b9;
 }

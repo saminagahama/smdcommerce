@@ -36,6 +36,9 @@ public class UsuarioDAO {
             s.close();
             c.close();
         } catch (Exception ex) {
+            System.err.println("Erro ao inserir cliente: " + ex.getMessage());
+            System.err.println("Stack Trace: ");
+            ex.printStackTrace();
             sucesso = false;
         }
         return sucesso;
@@ -98,6 +101,62 @@ public class UsuarioDAO {
             usuario = null;
         }
         return usuario;
+    }
+
+    /**
+     * Atualiza os dados do usuário
+     */
+    public boolean atualizarUsuario(int id, String nome, String endereco, String email, String senha) {
+        boolean sucesso = false;
+        try {
+            Class.forName(JDBC_DRIVER);
+            Connection c = DriverManager.getConnection(JDBC_URL, JDBC_USUARIO, JDBC_SENHA);
+            String sql;
+            PreparedStatement s;
+            if (senha != null && !senha.isEmpty()) {
+                sql = "UPDATE usuario SET nome=?, endereco=?, email=?, senha=? WHERE id=?";
+                s = c.prepareStatement(sql);
+                s.setString(1, nome);
+                s.setString(2, endereco);
+                s.setString(3, email);
+                s.setString(4, senha);
+                s.setInt(5, id);
+            } else {
+                sql = "UPDATE usuario SET nome=?, endereco=?, email=? WHERE id=?";
+                s = c.prepareStatement(sql);
+                s.setString(1, nome);
+                s.setString(2, endereco);
+                s.setString(3, email);
+                s.setInt(4, id);
+            }
+            sucesso = (s.executeUpdate() == 1);
+            s.close();
+            c.close();
+        } catch (Exception ex) {
+            System.err.println("Erro ao atualizar usuário: " + ex.getMessage());
+            sucesso = false;
+        }
+        return sucesso;
+    }
+
+    /**
+     * Exclui o usuário pelo id
+     */
+    public boolean excluirUsuario(int id) {
+        boolean sucesso = false;
+        try {
+            Class.forName(JDBC_DRIVER);
+            Connection c = DriverManager.getConnection(JDBC_URL, JDBC_USUARIO, JDBC_SENHA);
+            PreparedStatement s = c.prepareStatement("DELETE FROM usuario WHERE id=?");
+            s.setInt(1, id);
+            sucesso = (s.executeUpdate() == 1);
+            s.close();
+            c.close();
+        } catch (Exception ex) {
+            System.err.println("Erro ao excluir usuário: " + ex.getMessage());
+            sucesso = false;
+        }
+        return sucesso;
     }
 
 }
