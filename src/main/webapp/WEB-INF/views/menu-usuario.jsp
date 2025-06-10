@@ -14,5 +14,7 @@
   <c:if test="${usuario.administrador}">
     <h3>Menu do admin</h3>
     <a href="">Gerenciar produtos</a>
+    <a href="">Gerenciar categorias</a>
+    <a href="">Gerenciar usuários</a>
   </c:if>
 </div>
