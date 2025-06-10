@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15.7
+    container_name: postgres-smd
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: 251web
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: 94986354
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

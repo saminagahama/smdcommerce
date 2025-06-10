@@ -328,7 +328,7 @@
           </div>
 
           <div class="cart-actions">
-            <a href="index.html" class="continue-shopping">Continuar Comprando</a>
+            <a href="/" class="continue-shopping">Continuar Comprando</a>
             <button id="checkout-btn" class="checkout-button">
               Finalizar Compra
             </button>
@@ -355,7 +355,7 @@
               "É necessário fazer login para finalizar a compra. Deseja ir para a página de login agora?"
             )
           ) {
-            window.location.href = "index.html#login-area";
+            window.location.href = "/";
           }
         });
       }
@@ -398,7 +398,7 @@
                 document.getElementById("cart-content").innerHTML = `
                   <div class="empty-cart">
                     <p>Seu carrinho está vazio</p>
-                    <a href="index.html" class="continue-shopping" style="display:inline-block;margin-top:1rem;">Voltar às compras</a>
+                    <a href="/" class="continue-shopping" style="display:inline-block;margin-top:1rem;">Voltar às compras</a>
                   </div>
                 `;
               }

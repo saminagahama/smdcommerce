@@ -124,7 +124,7 @@
             if (isValid) {
                 const btn = form.querySelector('button[type="submit"]');
                 btn.textContent = 'Cadastrando...'; btn.disabled = true;
-                setTimeout(() => { alert('Cadastro realizado com sucesso!'); window.location.href = 'index.html'; }, 1500);
+                setTimeout(() => { alert('Cadastro realizado com sucesso!'); window.location.href = '/'; }, 1500);
             }
         });
         [nomeInput,enderecoInput,emailInput,loginInput,senhaInput,confirmaSenhaInput].forEach(input => input.addEventListener('input', () => clearError(input.id)));

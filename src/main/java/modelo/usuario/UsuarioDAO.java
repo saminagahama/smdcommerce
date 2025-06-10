@@ -94,6 +94,7 @@ public class UsuarioDAO {
             s.close();
             c.close();
         } catch (Exception ex) {
+            System.err.println("Erro ao obter usuário: " + ex.getMessage());
             usuario = null;
         }
         return usuario;

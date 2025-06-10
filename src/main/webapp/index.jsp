@@ -18,7 +18,7 @@
     </header>
 
     <nav>
-        <a href="/smd-web-tf/views/carrinho.jsp">Meu Carrinho</a>
+        <a href="/smd-web-tf/carrinho.jsp">Meu Carrinho</a>
     </nav>
 
     <div class="container">
@@ -42,13 +42,15 @@
                     <input type="password" id="senha" name="senha" required placeholder="Digite sua senha">
 
                     <button type="submit" value="">Entrar</button>
-                    <a href="/smd-web-tf/views/cadastro.jsp">Não tem conta? Cadastre-se</a>
+                    <a href="/smd-web-tf/cadastro.jsp">Não tem conta? Cadastre-se</a>
                 </form>
                 <div id="mensagem"></div>
             </div>
         <%
-            }
+            } else {
         %>
+                <jsp:include page="/WEB-INF/views/menu-usuario.jsp" />
+        <% } %>
             
         </aside>
     </div>
@@ -88,6 +90,12 @@
                 
                 var form = event.target;
                 var formData = new FormData(form);
+                var btn = form.querySelector('button[type="submit"]');
+                var originalText = btn.textContent;
+                btn.disabled = true;
+                btn.textContent = 'Entrando...';
+                // Limpa mensagem de erro ao iniciar login
+                document.getElementById('mensagem').innerHTML = '';
 
                 fetch('/smd-web-tf/Login', {
                     method: 'POST',
@@ -100,9 +108,16 @@
                     response => response.text()
                 )
                 .then(html => {
-                    console.log(html);
                     if (html.includes('id="menu-usuario"')) {
-                        document.getElementById('login-area').remove();
+                        // Remove a área de login
+                        const loginArea = document.getElementById('login-area');
+                        if (loginArea) loginArea.remove();
+
+                        // Remove menu do usuário anterior, se existir
+                        const oldMenu = document.getElementById('menu-area') || document.getElementById('menu-usuario');
+                        if (oldMenu) oldMenu.remove();
+
+                        // Adiciona o novo menu do usuário
                         const aside = document.querySelector('.sidebar');
                         const div = document.createElement('div');
                         div.id = 'menu-area';
@@ -110,9 +125,15 @@
                         aside.appendChild(div);
                     } else {
                         document.getElementById('mensagem').innerHTML = html;
+                        btn.disabled = false;
+                        btn.textContent = originalText;
                     }
                 })
-                .catch(err => console.log(err));
+                .catch(err => {
+                    console.log(err);
+                    btn.disabled = false;
+                    btn.textContent = originalText;
+                });
             });
         }
 
@@ -128,6 +149,14 @@
                 }, 2000);
             });
         });
+        
+        function logout(e) {
+        e.preventDefault();
+        fetch('/smd-web-tf/logout')
+            .then(() => {
+                window.location.reload(true);
+            });
+        }
         
         window.onload = carregarListaProdutos;
     </script>

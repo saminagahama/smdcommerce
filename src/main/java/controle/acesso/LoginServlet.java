@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import modelo.usuario.Usuario;
 import modelo.usuario.UsuarioDAO;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.annotation.MultipartConfig;
 
 /**
  *
@@ -18,6 +19,7 @@ import javax.servlet.annotation.WebServlet;
  * Classe de controle para realizar o login de um usuário
  */
 @WebServlet("/Login")
+@MultipartConfig
 public class LoginServlet extends HttpServlet {
 
     @Override

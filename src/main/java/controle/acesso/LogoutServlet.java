@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.annotation.WebServlet;
 
 /**
  *
@@ -14,14 +15,17 @@ import javax.servlet.http.HttpSession;
  *
  * Classe de controle para realizar o logout de um usuário
  */
+@WebServlet("/logout")
 public class LogoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
         HttpSession sessao = request.getSession(false);
+        System.out.println("Sessão antes do logout: " + sessao);
         if (sessao != null) {
             sessao.invalidate();
         }
+        System.out.println("Sessão após o logout: " + request.getSession(false));
         response.sendRedirect(request.getContextPath() + "/index.jsp");
     }
 
