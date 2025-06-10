@@ -83,7 +83,6 @@
         	
         }
         
-        // Só adiciona o listener se o formulário existir (usuário não logado)
         if (document.getElementById('login-form')) {
             document.getElementById('login-form').addEventListener('submit', function(event) {
                 event.preventDefault();
@@ -94,7 +93,6 @@
                 var originalText = btn.textContent;
                 btn.disabled = true;
                 btn.textContent = 'Entrando...';
-                // Limpa mensagem de erro ao iniciar login
                 document.getElementById('mensagem').innerHTML = '';
 
                 fetch('/smd-web-tf/Login', {
@@ -109,15 +107,12 @@
                 )
                 .then(html => {
                     if (html.includes('id="menu-usuario"')) {
-                        // Remove a área de login
                         const loginArea = document.getElementById('login-area');
                         if (loginArea) loginArea.remove();
 
-                        // Remove menu do usuário anterior, se existir
                         const oldMenu = document.getElementById('menu-area') || document.getElementById('menu-usuario');
                         if (oldMenu) oldMenu.remove();
 
-                        // Adiciona o novo menu do usuário
                         const aside = document.querySelector('.sidebar');
                         const div = document.createElement('div');
                         div.id = 'menu-area';
