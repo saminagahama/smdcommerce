@@ -55,23 +55,39 @@
             .then(r => r.text())
             .then(msg => {
                 document.getElementById('msg').innerHTML = msg;
-                if (msg.includes('sucesso')) setTimeout(() => window.location.reload(), 1500);
+                if (msg.includes('sucesso')) setTimeout(() => window.location.reload(), 1000);
             })
             .catch(() => {
                 document.getElementById('msg').innerHTML = "<div class='error-message'>Erro ao atualizar dados.</div>";
             });
         });
 
+        function habilitarCampos() {
+            const form = document.getElementById('form-minha-conta');
+            Array.from(form.elements).forEach(el => el.disabled = false);
+            document.getElementById('btn-excluir').disabled = false;
+        }
+
         document.getElementById('btn-excluir').addEventListener('click', function() {
             if (confirm('Tem certeza que deseja excluir sua conta? Esta ação não poderá ser desfeita.')) {
+                const form = document.getElementById('form-minha-conta');
+                Array.from(form.elements).forEach(el => el.disabled = true);
+                document.getElementById('btn-excluir').disabled = true;
+
                 fetch('ExcluirUsuario', { method: 'POST' })
                 .then(r => r.text())
                 .then(msg => {
                     document.getElementById('msg').innerHTML = msg;
-                    if (msg.includes('sucesso')) setTimeout(() => window.location.href = 'index.jsp', 1500);
+                    if (msg.includes('sucesso')) {
+                        alert("Conta excluída com sucesso!");
+                        window.location.href = '<%= request.getContextPath() %>/index.jsp';
+                    } else {
+                        habilitarCampos();
+                    }
                 })
                 .catch(() => {
                     document.getElementById('msg').innerHTML = "<div class='error-message'>Erro ao excluir conta.</div>";
+                    habilitarCampos();
                 });
             }
         });
