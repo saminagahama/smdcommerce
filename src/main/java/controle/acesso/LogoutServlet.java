@@ -21,11 +21,9 @@ public class LogoutServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
         HttpSession sessao = request.getSession(false);
-        System.out.println("Sessão antes do logout: " + sessao);
         if (sessao != null) {
             sessao.invalidate();
         }
-        System.out.println("Sessão após o logout: " + request.getSession(false));
         response.sendRedirect(request.getContextPath() + "/index.jsp");
     }
 
