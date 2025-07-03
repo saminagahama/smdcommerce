@@ -34,7 +34,7 @@
         %>
             <div id="login-area">
                 <h3>Login</h3>
-                <form id="login-form" action="Login" method="post">
+                <form id="login-form" action="<%= request.getContextPath() %>/Login" method="post">
                     <label for="login">E-mail ou usuário:</label>
                     <input type="text" id="login" name="login" required placeholder="Digite seu e-mail ou usuário">
 
@@ -42,7 +42,7 @@
                     <input type="password" id="senha" name="senha" required placeholder="Digite sua senha">
 
                     <button type="submit" value="">Entrar</button>
-                    <a href="/smd-web-tf/cadastro.jsp">Não tem conta? Cadastre-se</a>
+                    <a href="<%= request.getContextPath() %>/cadastro.jsp">Não tem conta? Cadastre-se</a>
                 </form>
                 <div id="mensagem"></div>
             </div>
@@ -95,7 +95,7 @@
                 btn.textContent = 'Entrando...';
                 document.getElementById('mensagem').innerHTML = '';
 
-                fetch('/smd-web-tf/Login', {
+                fetch('<%= request.getContextPath() %>/Login', {
                     method: 'POST',
                     body: formData,
                     headers: {
