@@ -1,23 +1,20 @@
 package controle.acesso;
 
 import java.io.IOException;
+import java.util.UUID;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import modelo.usuario.Usuario;
 import modelo.usuario.UsuarioDAO;
+import modelo.acesso.TokenDAO; // Importação adicionada
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.annotation.MultipartConfig;
 
-/**
- *
- * @author Leonardo Oliveira Moreira
- *
- * Classe de controle para realizar o login de um usuário
- */
 @WebServlet("/Login")
 @MultipartConfig
 public class LoginServlet extends HttpServlet {
@@ -41,6 +38,20 @@ public class LoginServlet extends HttpServlet {
         } else {
             HttpSession sessao = request.getSession(true);
             sessao.setAttribute("usuario", usuario);
+
+            String lembrar = request.getParameter("lembrar");
+            if (lembrar != null && lembrar.equals("on")) {
+                String tokenValor = UUID.randomUUID().toString();
+
+                TokenDAO tokenDAO = new TokenDAO();
+                tokenDAO.salvar(tokenValor, usuario.getId());
+
+                Cookie cookie = new Cookie("lembrar-me", tokenValor);
+                cookie.setMaxAge(30 * 24 * 60 * 60); // Expira em 30 dias
+                cookie.setPath(request.getContextPath());
+                response.addCookie(cookie);
+            }
+
             if ("XMLHttpRequest".equals(request.getHeader("X-Requested-With"))) {
                 response.setContentType("text/html;charset=UTF-8");
                 RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/menu-usuario.jsp");
@@ -51,5 +62,4 @@ public class LoginServlet extends HttpServlet {
             }
         }
     }
-
 }

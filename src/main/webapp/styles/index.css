@@ -277,17 +277,17 @@ footer {
         flex-direction: column;
         padding: 0 1rem;
     }
-    
+
     .sidebar {
         width: 100%;
         order: -1;
         margin-bottom: 2rem;
     }
-    
+
     nav {
         justify-content: center;
     }
-    
+
     .product-list {
         grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
     }

@@ -7,14 +7,14 @@
     <c:redirect url="/smd-web-tf/index.jsp" />
   </c:if>
   <p>Bem-vindo, ${usuario.nome}!</p>
-  <a href="#" onclick="logout(event)">Sair</a>
+  <a href="${pageContext.request.contextPath}/logout">Sair</a>
   <h3>Menu do usuário</h3>
-  <a href="MinhaConta">Minha conta</a>
-  <a href="">Meus pedidos</a>
+  <a href="${pageContext.request.contextPath}/MinhaConta">Minha conta</a>
+  <a href="${pageContext.request.contextPath}/MeusPedidos">Meus pedidos</a>
   <c:if test="${usuario.administrador}">
-    <h3>Menu do admin</h3>
-    <a href="">Gerenciar produtos</a>
-    <a href="">Gerenciar categorias</a>
-    <a href="">Gerenciar usuários</a>
+    <h3>Menu do administrador</h3>
+    <a href="${pageContext.request.contextPath}/admin/produtos">Gerenciar produtos</a>
+    <a href="${pageContext.request.contextPath}/admin/categorias">Gerenciar categorias</a>
+    <a href="${pageContext.request.contextPath}/admin/usuarios">Gerenciar usuários</a>
   </c:if>
 </div>

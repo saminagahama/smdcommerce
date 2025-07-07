@@ -1,67 +1,62 @@
 package modelo.categoria;
 
-import static config.Config.JDBC_DRIVER;
-import static config.Config.JDBC_SENHA;
-import static config.Config.JDBC_URL;
-import static config.Config.JDBC_USUARIO;
+import util.ConnectionFactory;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author Leonardo Oliveira Moreira
- * 
- * Classe que implementa o padrão DAO para a entidade categoria
- */
 public class CategoriaDAO {
-       
-    /**
-     * Método para listar todas as categorias existentes
-     * @return 
-     */
-    public List<Categoria> listar() {
+
+    public void inserir(Categoria categoria) {
+        String sql = "INSERT INTO Categoria (descricao) VALUES (?)";
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, categoria.getDescricao());
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            throw new RuntimeException("Erro ao inserir categoria: " + ex.getMessage(), ex);
+        }
+    }
+
+    public List<Categoria> obterTodos() {
         List<Categoria> categorias = new ArrayList<>();
-        try {
-            Class.forName(JDBC_DRIVER);
-            Connection c = DriverManager.getConnection(JDBC_URL,JDBC_USUARIO, JDBC_SENHA);
-            Statement s = c.createStatement();
-            ResultSet rs = s.executeQuery("SELECT id, descricao FROM categoria");
+        String sql = "SELECT id, descricao FROM Categoria ORDER BY descricao";
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
-                Categoria categoria = new Categoria();
-                categoria.setId(rs.getInt("id"));
-                categoria.setDescricao(rs.getString("descricao"));
-                categorias.add(categoria);
+                Categoria cat = new Categoria();
+                cat.setId(rs.getInt("id"));
+                cat.setDescricao(rs.getString("descricao"));
+                categorias.add(cat);
             }
-            rs.close();
-            s.close();
-            c.close();
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+        } catch (SQLException ex) {
+            throw new RuntimeException("Erro ao listar categorias: " + ex.getMessage(), ex);
         }
         return categorias;
     }
-    
-    /**
-     * Método para inserir uma nova categoria
-     * 
-     * @param descricao
-     * @return 
-     */
-    public boolean inserir(String descricao) {
-        boolean sucesso = false;
-        try {
-            Class.forName(JDBC_DRIVER);
-            Connection c = DriverManager.getConnection(JDBC_URL,JDBC_USUARIO, JDBC_SENHA);
-            PreparedStatement ps = c.prepareStatement("INSERT INTO categoria (descricao) VALUES (?)");
-            ps.setString(1, descricao);
-            sucesso = (ps.executeUpdate() == 1);
-            ps.close();
-            c.close();
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+
+    public void atualizar(Categoria categoria) {
+        String sql = "UPDATE Categoria SET descricao = ? WHERE id = ?";
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, categoria.getDescricao());
+            stmt.setInt(2, categoria.getId());
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            throw new RuntimeException("Erro ao atualizar categoria: " + ex.getMessage(), ex);
         }
-        return sucesso;
     }
-    
+
+    public void remover(int id) {
+        String sql = "DELETE FROM Categoria WHERE id = ?";
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            throw new RuntimeException("Erro ao remover categoria: " + ex.getMessage(), ex);
+        }
+    }
 }

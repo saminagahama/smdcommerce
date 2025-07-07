@@ -8,7 +8,7 @@ public class Produto {
 	private int id;
 	private String descricao;
 	private BigDecimal preco;
-	private String foto;
+	private byte[] fotoBytes;
 	private int quantidade;
 	private Categoria categoria;
 
@@ -30,12 +30,8 @@ public class Produto {
 	public void setPreco(BigDecimal preco) {
 		this.preco = preco;
 	}
-	public String getFoto() {
-		return foto;
-	}
-	public void setFoto(String foto) {
-		this.foto = foto;
-	}
+	public byte[] getFotoBytes() { return fotoBytes; }
+	public void setFotoBytes(byte[] fotoBytes) { this.fotoBytes = fotoBytes; }
 	public int getQuantidade() {
 		return quantidade;
 	}
@@ -48,4 +44,5 @@ public class Produto {
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
+
 }

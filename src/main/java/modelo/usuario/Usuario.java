@@ -14,6 +14,7 @@ public class Usuario {
     private String email;
     private String login;
     private String senha;
+    private String image;
     private boolean administrador;
 
     public int getId() {
@@ -62,6 +63,14 @@ public class Usuario {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+    
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public boolean isAdministrador() {
