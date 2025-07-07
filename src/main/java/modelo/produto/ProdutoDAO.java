@@ -11,12 +11,10 @@ import modelo.categoria.Categoria;
 
 public class ProdutoDAO {
 
-    // Bloco estático para carregar o driver JDBC uma única vez
     static {
         try {
             Class.forName(JDBC_DRIVER);
         } catch (ClassNotFoundException e) {
-            // Lança uma exceção em tempo de execução se o driver não for encontrado
             throw new RuntimeException("Erro ao carregar o driver JDBC", e);
         }
     }
@@ -54,7 +52,6 @@ public class ProdutoDAO {
                 produtos.add(extrairProdutoDoResultSet(rs));
             }
         } catch (SQLException ex) {
-            // É uma boa prática lançar a exceção para a camada de controle tratar
             throw new RuntimeException("Erro ao listar produtos.", ex);
         }
         return produtos;
@@ -73,13 +70,11 @@ public class ProdutoDAO {
                 produtos.add(extrairProdutoDoResultSet(rs));
             }
         } catch (SQLException ex) {
-            // Lançar a exceção ajuda a diagnosticar o problema
             throw new RuntimeException("Erro ao listar produtos disponíveis.", ex);
         }
         return produtos;
     }
 
-    // ... o restante da classe permanece o mesmo ...
     public Produto obterPorId(int id) {
         String sql = "SELECT p.id, p.descricao, p.preco, p.foto, p.quantidade, c.id as categoria_id, c.descricao as categoria_descricao " +
                 "FROM Produto p INNER JOIN Categoria c ON p.categoria_id = c.id WHERE p.id = ?";
@@ -114,7 +109,6 @@ public class ProdutoDAO {
     }
 
     public boolean atualizar(Produto produto) {
-        // Se a foto não for alterada, não atualiza o campo no banco
         String sql = "UPDATE produto SET descricao = ?, preco = ?, quantidade = ?, categoria_id = ? " +
                 (produto.getFotoBytes() != null && produto.getFotoBytes().length > 0 ? ", foto = ? " : "") +
                 "WHERE id = ?";

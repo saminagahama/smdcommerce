@@ -7,7 +7,6 @@ public class Token {
     private int usuarioId;
     private LocalDateTime dataExpiracao;
 
-    // Getters e Setters
     public String getToken() {
         return token;
     }

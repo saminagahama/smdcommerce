@@ -52,7 +52,6 @@ public class AdminPerfilServlet extends HttpServlet {
             boolean sucesso = dao.atualizarUsuario(usuario.getId(), nome, endereco, email, senha);
 
             if (sucesso) {
-                // Atualiza o objeto do usuário na sessão
                 usuario.setNome(nome);
                 usuario.setEndereco(endereco);
                 usuario.setEmail(email);

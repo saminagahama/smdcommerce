@@ -9,8 +9,6 @@ public class ConnectionFactory {
     private static final String JDBC_USUARIO = "postgres";
     private static final String JDBC_SENHA = "1234";
 
-    // Bloco estático para carregar o driver JDBC.
-    // Isso será executado uma vez quando a classe for carregada.
     static {
         try {
             Class.forName("org.postgresql.Driver");

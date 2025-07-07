@@ -16,7 +16,6 @@ public class TokenDAO {
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, token);
             stmt.setInt(2, usuarioId);
-            // Define a expiração para 30 dias a partir de agora
             stmt.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now().plusDays(30)));
             stmt.executeUpdate();
         } catch (SQLException e) {

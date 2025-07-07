@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import util.ConnectionFactory; // Importar a ConnectionFactory
+import util.ConnectionFactory;
 
 /**
  *
@@ -55,7 +55,6 @@ public class UsuarioDAO {
                 }
             }
         } catch (SQLException e) {
-            // Lançar a exceção ajuda a diagnosticar o problema real
             throw new RuntimeException("Erro ao obter usuário por login e senha.", e);
         }
         return usuario;

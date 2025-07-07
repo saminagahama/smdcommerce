@@ -70,7 +70,6 @@
 </div>
 
 <script>
-    // Adiciona uma nova classe CSS para o botão de cancelar
     const style = document.createElement('style');
     style.innerHTML = `
         .action-links .cancel {
@@ -91,22 +90,18 @@
         const row = document.getElementById('row-' + id);
         if (!row) return;
 
-        // Seleciona todos os elementos de visualização e edição dentro da linha
         const viewElements = row.querySelectorAll('.view-mode');
         const editElements = row.querySelectorAll('.edit-mode');
 
         if (isEditing) {
-            // Entra no modo de edição: esconde 'view' e mostra 'edit'
             viewElements.forEach(el => el.style.display = 'none');
             editElements.forEach(el => {
-                el.style.display = 'flex'; // 'flex' para .action-links, 'block' ou 'inline' para outros
+                el.style.display = 'flex';
                 if(el.tagName === 'INPUT') el.style.display = 'block';
             });
-            // Foca no campo de input
             row.querySelector('input[name="descricao"]').focus();
         } else {
-            // Sai do modo de edição: mostra 'view' e esconde 'edit'
-            viewElements.forEach(el => el.style.display = 'flex'); // 'flex' para .action-links
+            viewElements.forEach(el => el.style.display = 'flex');
             editElements.forEach(el => el.style.display = 'none');
         }
     }

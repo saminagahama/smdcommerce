@@ -11,7 +11,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import modelo.acesso.TokenDAO; // Importação adicionada
+import modelo.acesso.TokenDAO;
 import modelo.usuario.Usuario;
 import modelo.usuario.UsuarioDAO;
 
@@ -34,7 +34,6 @@ public class AuthenticationFilter implements Filter {
                         Integer usuarioId = tokenDAO.obterUsuarioIdPeloToken(tokenValor);
                         if (usuarioId != null) {
                             UsuarioDAO usuarioDAO = new UsuarioDAO();
-                            // CORREÇÃO: O nome do método é obterPorId
                             Usuario usuario = usuarioDAO.obterPorId(usuarioId);
                             if (usuario != null) {
                                 session = request.getSession(true);
@@ -51,11 +50,12 @@ public class AuthenticationFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        // Método de inicialização
+
     }
+
 
     @Override
     public void destroy() {
-        // Método de destruição
+
     }
 }

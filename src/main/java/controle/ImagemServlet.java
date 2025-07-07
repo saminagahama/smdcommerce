@@ -28,13 +28,10 @@ public class ImagemServlet extends HttpServlet {
 
             if (produto != null && produto.getFotoBytes() != null && produto.getFotoBytes().length > 0) {
                 byte[] fotoBytes = produto.getFotoBytes();
-                // Define o tipo de conteúdo (MIME type). "image/jpeg" é um bom padrão.
                 response.setContentType("image/jpeg");
                 response.setContentLength(fotoBytes.length);
-                // Escreve os bytes da imagem na resposta
                 response.getOutputStream().write(fotoBytes);
             } else {
-                // Envia um erro 404 se o produto ou a imagem não forem encontrados
                 response.sendError(HttpServletResponse.SC_NOT_FOUND);
             }
         } catch (NumberFormatException e) {

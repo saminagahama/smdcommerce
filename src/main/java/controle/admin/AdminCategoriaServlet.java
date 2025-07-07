@@ -20,18 +20,16 @@ public class AdminCategoriaServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String acao = request.getParameter("acao");
 
-        // Se a ação for "remover", executa a remoção e redireciona
         if ("remover".equals(acao)) {
             try {
                 removerCategoria(request);
                 response.sendRedirect(request.getContextPath() + "/admin/categorias");
-                return; // Importante para parar a execução aqui
+                return;
             } catch (Exception e) {
                 throw new ServletException("Erro ao remover categoria", e);
             }
         }
 
-        // Comportamento padrão: listar todas as categorias
         List<Categoria> categorias = categoriaDAO.obterTodos();
         request.setAttribute("categorias", categorias);
         request.getRequestDispatcher("/WEB-INF/views/admin/gerenciar-categorias.jsp").forward(request, response);

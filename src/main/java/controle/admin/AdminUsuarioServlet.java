@@ -60,11 +60,9 @@ public class AdminUsuarioServlet extends HttpServlet {
                 request.setAttribute("usuario", usuario);
                 request.getRequestDispatcher("/WEB-INF/views/admin/editar-usuario.jsp").forward(request, response);
             } else {
-                // Usuário não encontrado, redireciona para a lista
                 response.sendRedirect(request.getContextPath() + "/admin/usuarios");
             }
         } catch (NumberFormatException e) {
-            // ID inválido, redireciona para a lista
             response.sendRedirect(request.getContextPath() + "/admin/usuarios");
         }
     }
@@ -80,7 +78,7 @@ public class AdminUsuarioServlet extends HttpServlet {
         String email = request.getParameter("email");
         String login = request.getParameter("login");
         String senha = request.getParameter("senha");
-        String endereco = request.getParameter("endereco"); // Obter o endereço
+        String endereco = request.getParameter("endereco");
         boolean administrador = "on".equals(request.getParameter("administrador"));
 
         if (nome != null && !nome.isEmpty() && email != null && !email.isEmpty() && senha != null && !senha.isEmpty() && login != null && !login.isEmpty() && endereco != null && !endereco.isEmpty()) {
@@ -90,7 +88,7 @@ public class AdminUsuarioServlet extends HttpServlet {
             novoUsuario.setLogin(login);
             novoUsuario.setSenha(senha);
             novoUsuario.setAdministrador(administrador);
-            novoUsuario.setEndereco(endereco); // Definir o endereço
+            novoUsuario.setEndereco(endereco);
 
             usuarioDAO.inserir(novoUsuario);
         }
