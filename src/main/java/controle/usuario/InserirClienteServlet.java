@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.annotation.MultipartConfig;
+
+import modelo.usuario.Usuario;
 import modelo.usuario.UsuarioDAO;
 
 /**
@@ -28,14 +30,16 @@ public class InserirClienteServlet extends HttpServlet {
         String login = request.getParameter("login");
         String senha = request.getParameter("senha");
         UsuarioDAO usuarioDAO = new UsuarioDAO();
-        boolean sucesso = usuarioDAO.inserirCliente(nome, endereco, email, login, senha);
-        response.setContentType("text/html; charset=UTF-8");
+        Usuario usuario = new Usuario(nome, endereco, email, login, senha);
         String mensagem;
-        if (sucesso) {
-            mensagem = "<div class='mensagem-cadastro'>Cliente inserido com sucesso</div>";
-        } else {
-            mensagem = "<div class='mensagem-cadastro'>Não foi possível inserir o cliente</div>";
+        try {
+        	usuarioDAO.inserir(usuario);
+        	mensagem = "<div class='mensagem-cadastro'>Cliente inserido com sucesso</div>";
+        } catch (Exception err) {
+            err.printStackTrace();
+        	mensagem = "<div class='mensagem-cadastro'>Não foi possível inserir o cliente</div>";
         }
+        response.setContentType("text/html; charset=UTF-8");
         response.getWriter().write(mensagem);
     }
 

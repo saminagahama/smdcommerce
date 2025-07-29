@@ -16,6 +16,16 @@ public class Usuario {
     private String senha;
     private String image;
     private boolean administrador;
+    
+    public Usuario() {}
+    
+    public Usuario(String nome, String endereco, String email, String login, String senha) {
+    	this.nome = nome;
+    	this.endereco = endereco;
+    	this.email = email;
+    	this.login = login;
+    	this.senha = senha;
+    }
 
     public int getId() {
         return id;

@@ -4,6 +4,7 @@
 <%@ page import="modelo.carrinho.CarrinhoItem" %>
 <%
     List<CarrinhoItem> carrinho = (List<CarrinhoItem>) session.getAttribute("carrinho");
+    String erro = request.getParameter("erro");
 %>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -23,6 +24,9 @@
     <main>
       <div class="admin-container">
         <h2>Itens no seu Carrinho</h2>
+        <% if (erro != null && !erro.isEmpty()) { %>
+            <div class="error-message" style="color:#e74c3c;margin-bottom:1rem;"><%= erro %></div>
+        <% } %>
         <table class="product-table" id="tabela-carrinho">
           <thead>
             <tr>
@@ -52,6 +56,7 @@
                         <input type="hidden" name="acao" value="remover"/>
                         <button class="remove" type="submit">Remover</button>
                     </form>
+                    <!-- Removido botão de alterar -->
                 </td>
             </tr>
             <% 
@@ -67,8 +72,8 @@
         <% 
           if (carrinho == null || carrinho.isEmpty()) {
         %>
-        <div class="cart-actions">
-          <a href="<%= request.getContextPath() %>/" class="continue-shopping" style="display:inline-block;margin-top:1rem;">Voltar para a Página Principal</a>
+        <div class="cart-actions" style="justify-content: flex-start;">
+          <a href="<%= request.getContextPath() %>/" style="background:none;color:#2980b9;padding:0;border:none;text-decoration:underline;margin:0;">Voltar para a Página Principal</a>
         </div>
         <% 
           } else {
@@ -76,11 +81,11 @@
           <div class="cart-total" id="cart-total-area">
             Total: <span id="cart-total">R$ <%= String.format("%.2f", total).replace('.', ',') %></span>
           </div>
-          <div class="cart-actions" id="cart-actions-area">
-            <a href="<%= request.getContextPath() %>/" class="continue-shopping">Continuar Comprando</a>
+          <div class="cart-actions" id="cart-actions-area" style="display:flex;justify-content:space-between;align-items:center;">
+            <a href="<%= request.getContextPath() %>/" style="background:none;color:#2980b9;padding:0;border:none;text-decoration:underline;margin:0;">Continuar Comprando</a>
             <form action="<%= request.getContextPath() %>/CarrinhoServlet" method="post" style="display:inline;">
               <input type="hidden" name="acao" value="finalizar"/>
-              <button id="checkout-btn" class="checkout-btn" type="submit">Finalizar Compra</button>
+              <button id="checkout-btn" class="checkout-btn" type="submit" style="margin-left:auto;">Finalizar Compra</button>
             </form>
           </div>
         <%
@@ -91,5 +96,6 @@
     <footer>
       <p>&copy; 2025 Minha Loja Virtual - Todos os direitos reservados</p>
     </footer>
+    <!-- Removido modal de alteração e scripts associados -->
   </body>
 </html>

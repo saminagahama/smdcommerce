@@ -116,8 +116,12 @@
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ id, descricao, preco, quantidade: 1 })
-            }).then(() => {
-                alert('Produto adicionado ao carrinho!');
+            }).then(response => {
+                if (response.ok) {
+                    alert('Produto adicionado ao carrinho!');
+                } else {
+                    alert('Erro ao adicionar ao carrinho.');
+                }
             });
         }
 
