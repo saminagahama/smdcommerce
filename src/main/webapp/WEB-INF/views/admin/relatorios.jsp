@@ -1,4 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -27,8 +30,8 @@
 </head>
 <body>
     <div class="admin-container">
+        <jsp:include page="_header.jsp" />
         <h1>Relatórios do E-commerce</h1>
-        <a href="${pageContext.request.contextPath}/" class="back-link">Voltar para a Página Inicial</a>
 
         <!-- Relatório 1: Produtos mais vendidos -->
         <h2>Produtos Mais Vendidos</h2>
@@ -41,17 +44,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Exemplo Produto 1</td>
-                    <td>120</td>
-                    <td>R$ 5.400,00</td>
-                </tr>
-                <tr>
-                    <td>Exemplo Produto 2</td>
-                    <td>85</td>
-                    <td>R$ 2.890,00</td>
-                </tr>
-                <!-- ...mais linhas... -->
+                <c:forEach items="${produtosMaisVendidos}" var="item">
+                    <tr>
+                        <td><c:out value="${item.produtoNome}"/></td>
+                        <td><c:out value="${item.quantidadeVendida}"/></td>
+                        <td><fmt:formatNumber value="${item.receitaTotal}" type="currency" currencySymbol="R$ "/></td>
+                    </tr>
+                </c:forEach>
             </tbody>
         </table>
 
@@ -66,17 +65,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Maria Silva</td>
-                    <td>15</td>
-                    <td>R$ 2.150,00</td>
-                </tr>
-                <tr>
-                    <td>João Souza</td>
-                    <td>12</td>
-                    <td>R$ 1.780,00</td>
-                </tr>
-                <!-- ...mais linhas... -->
+                <c:forEach items="${clientesMaisCompradores}" var="cliente">
+                    <tr>
+                        <td><c:out value="${cliente.clienteNome}"/></td>
+                        <td><c:out value="${cliente.totalPedidos}"/></td>
+                        <td><fmt:formatNumber value="${cliente.valorTotalGasto}" type="currency" currencySymbol="R$ "/></td>
+                    </tr>
+                </c:forEach>
             </tbody>
         </table>
 
@@ -86,22 +81,18 @@
             <thead>
                 <tr>
                     <th>Produto</th>
-                    <th>Quantidade em Estoque</th>
                     <th>Categoria</th>
+                    <th>Quantidade em Estoque</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Exemplo Produto 3</td>
-                    <td>2</td>
-                    <td>Maquiagem</td>
-                </tr>
-                <tr>
-                    <td>Exemplo Produto 4</td>
-                    <td>5</td>
-                    <td>Cuidados com a Pele</td>
-                </tr>
-                <!-- ...mais linhas... -->
+                <c:forEach items="${produtosEstoqueBaixo}" var="produto">
+                    <tr>
+                        <td><c:out value="${produto.produtoNome}"/></td>
+                        <td><c:out value="${produto.categoriaNome}"/></td>
+                        <td><c:out value="${produto.quantidadeEstoque}"/></td>
+                    </tr>
+                </c:forEach>
             </tbody>
         </table>
     </div>

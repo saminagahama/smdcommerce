@@ -61,3 +61,22 @@ CREATE TABLE Venda_Produto (
     CONSTRAINT fk_vendaproduto_venda FOREIGN KEY (venda_id) REFERENCES Venda (id) ON DELETE CASCADE,
     CONSTRAINT fk_vendaproduto_produto FOREIGN KEY (produto_id) REFERENCES Produto (id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
+
+// coluna "foto" de usuário
+ALTER TABLE produto ADD COLUMN foto BYTEA;
+
+// coluna "estoque" de produto
+ALTER TABLE produto ADD COLUMN estoque INTEGER NOT NULL DEFAULT 0 CHECK (estoque >= 0);
+
+//alteração id de categoria
+SELECT setval(pg_get_serial_sequence('categoria', 'id'), (SELECT MAX(id) FROM categoria));
+
+//criação da tabela token
+CREATE TABLE tokens (
+    token VARCHAR(255) PRIMARY KEY,
+    usuario_id INTEGER NOT NULL,
+    data_expiracao TIMESTAMP NOT NULL,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+);
+
+ALTER TABLE venda ADD COLUMN valor_total numeric(10,2) NOT NULL;

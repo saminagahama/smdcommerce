@@ -143,4 +143,32 @@ public class ProdutoDAO {
             return false;
         }
     }
+
+    public List<Produto> getTodosProdutos() {
+        List<Produto> produtos = new ArrayList<>();
+        String sql = "SELECT p.*, c.descricao as categoria_descricao FROM Produto p JOIN Categoria c ON p.categoria_id = c.id ORDER BY p.id";
+
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Produto produto = new Produto();
+                produto.setId(rs.getInt("id"));
+                produto.setDescricao(rs.getString("descricao"));
+                produto.setPreco(rs.getDouble("preco"));
+                produto.setQuantidade(rs.getInt("quantidade"));
+
+                Categoria categoria = new Categoria();
+                categoria.setId(rs.getInt("categoria_id"));
+                categoria.setDescricao(rs.getString("categoria_descricao"));
+                produto.setCategoria(categoria);
+
+                produtos.add(produto);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return produtos;
+    }
 }

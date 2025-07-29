@@ -40,25 +40,31 @@ public class VendaDAO {
         return false;
     }
 
-    public List<Venda> listarPorUsuario(int usuarioId) {
+    public List<Venda> listarTodas() {
         List<Venda> vendas = new ArrayList<>();
-        String sql = "SELECT id, data_hora, usuario_id, valor_total FROM venda WHERE usuario_id = ? ORDER BY data_hora DESC";
+        // Altere para LEFT JOIN para garantir que todas as vendas sejam listadas,
+        // mesmo que o usuário associado tenha sido removido.
+        String sql = "SELECT v.id, v.data_hora, v.usuario_id, v.valor_total, u.nome, u.email " +
+                "FROM venda v LEFT JOIN usuario u ON v.usuario_id = u.id ORDER BY v.data_hora DESC";
         try (Connection conn = ConnectionFactory.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, usuarioId);
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    Venda venda = new Venda();
-                    venda.setId(rs.getInt("id"));
-                    venda.setData_hora(rs.getTimestamp("data_hora").toLocalDateTime());
-                    Usuario usuario = new Usuario();
-                    usuario.setId(rs.getInt("usuario_id"));
-                    venda.setUsuario(usuario);
-                    venda.setValor_total(rs.getBigDecimal("valor_total"));
-                    VendaProdutoDAO vendaProdutoDAO = new VendaProdutoDAO();
-                    venda.setItens(vendaProdutoDAO.listarPorVenda(venda.getId()));
-                    vendas.add(venda);
-                }
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                Venda venda = new Venda();
+                venda.setId(rs.getInt("id"));
+                venda.setData_hora(rs.getTimestamp("data_hora").toLocalDateTime());
+                venda.setValor_total(rs.getBigDecimal("valor_total"));
+
+                modelo.usuario.Usuario usuario = new modelo.usuario.Usuario();
+                usuario.setId(rs.getInt("usuario_id"));
+                usuario.setNome(rs.getString("nome")); // Será null se o usuário não for encontrado
+                usuario.setEmail(rs.getString("email")); // Será null se o usuário não for encontrado
+                venda.setUsuario(usuario);
+
+                // Busca os itens da venda
+                VendaProdutoDAO vendaProdutoDAO = new VendaProdutoDAO();
+                venda.setItens(vendaProdutoDAO.listarPorVenda(venda.getId()));
+                vendas.add(venda);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -92,5 +98,50 @@ public class VendaDAO {
             ex.printStackTrace();
         }
         return vendas;
+    }
+
+    // Em modelo/venda/VendaDAO.java
+    public void excluirVenda(int vendaId) throws SQLException {
+        String sqlDeleteItens = "DELETE FROM Venda_Produto WHERE venda_id = ?";
+        String sqlDeleteVenda = "DELETE FROM Venda WHERE id = ?";
+
+        Connection conn = null;
+        try {
+            conn = ConnectionFactory.getConnection();
+            conn.setAutoCommit(false); // Inicia a transação
+
+            // 1. Exclui os itens da venda (try-with-resources)
+            try (PreparedStatement stmtItens = conn.prepareStatement(sqlDeleteItens)) {
+                stmtItens.setInt(1, vendaId);
+                stmtItens.executeUpdate();
+            }
+
+            // 2. Exclui a venda (try-with-resources)
+            try (PreparedStatement stmtVenda = conn.prepareStatement(sqlDeleteVenda)) {
+                stmtVenda.setInt(1, vendaId);
+                stmtVenda.executeUpdate();
+            }
+
+            conn.commit(); // Confirma a transação se tudo deu certo
+
+        } catch (SQLException e) {
+            if (conn != null) {
+                try {
+                    conn.rollback(); // Desfaz a transação em caso de erro
+                } catch (SQLException ex) {
+                    ex.printStackTrace(); // Log do erro de rollback
+                }
+            }
+            e.printStackTrace();
+            throw e; // Propaga a exceção original
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.close(); // Fecha a conexão principal
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }

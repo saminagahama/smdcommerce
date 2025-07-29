@@ -4,7 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a23b1afb-709f-4261-be80-3b5801204398" name="Changes" comment="" />
+    <list default="true" id="a23b1afb-709f-4261-be80-3b5801204398" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/modelo/relatorio/RelatorioDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seed.sql" beforeDir="false" afterPath="$PROJECT_DIR$/seed.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/config/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/config/Config.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controle/admin/AdminRelatorioServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controle/admin/AdminRelatorioServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controle/admin/AdminVendasServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controle/admin/AdminVendasServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controle/produto/ProdutoServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controle/produto/ProdutoServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/modelo/produto/ProdutoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/modelo/produto/ProdutoDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/modelo/venda/VendaDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/modelo/venda/VendaDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/relatorios.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/relatorios.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/vendas.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/vendas.jsp" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -19,12 +31,12 @@
     &quot;assignee&quot;: &quot;saminagahama&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/joicenunes/smdcommerce.git&quot;,
-    &quot;accountId&quot;: &quot;c91fb964-0a9b-41e9-a901-6a615aa55cee&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/joicenunes/smdcommerce",
+    "accountId": "c91fb964-0a9b-41e9-a901-6a615aa55cee"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 3

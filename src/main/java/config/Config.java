@@ -10,11 +10,11 @@ public final class Config {
 
     public static final String JDBC_DRIVER = "org.postgresql.Driver";
     public static final String JDBC_URL = "jdbc:postgresql://localhost:5432/251web";
-    public static final String JDBC_USUARIO = "root";
-    public static final String JDBC_SENHA = "94986354";
+    // public static final String JDBC_USUARIO = "root";
+    // public static final String JDBC_SENHA = "94986354";
     
-    // public static final String JDBC_USUARIO = "postgres";
-    // public static final String JDBC_SENHA = "1234";
+     public static final String JDBC_USUARIO = "postgres";
+     public static final String JDBC_SENHA = "1234";
 
     private Config() {
 

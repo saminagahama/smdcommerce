@@ -20,14 +20,14 @@ public class ProdutoServlet extends HttpServlet {
 			HttpServletResponse response
 	) {
 		String action = request.getParameter("action");
-		
+
 		if (action == null) {
 			action = "listar";
 		}
 
 		try {
-			switch(action) {
-				case  "listar":
+			switch (action) {
+				case "listar":
 					listarTodosProdutos(request, response);
 					break;
 			}
@@ -37,17 +37,18 @@ public class ProdutoServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private void listarTodosProdutos(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-		List<Produto> produtos = ProdutoDAO.listarDisponiveis();
+			throws ServletException, IOException {
+		ProdutoDAO produtoDAO = new ProdutoDAO();
+		List<Produto> produtos = produtoDAO.obterTodos();
 		response.setContentType("text/html;charset=UTF-8");
 		if (produtos == null || produtos.isEmpty()) {
 			response.getWriter().write("");
 			return;
 		}
 		request.setAttribute("produtos", produtos);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/grade-produto.jsp");
-        dispatcher.include(request, response);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/grade-produto.jsp");
+		dispatcher.include(request, response);
 	}
 }
