@@ -37,6 +37,10 @@
             font-weight: bold;
             color: #333;
         }
+        @keyframes spin {
+            0% { transform: rotate(0deg);}
+            100% { transform: rotate(360deg);}
+        }
     </style>
 </head>
 <body>
@@ -45,29 +49,20 @@
     </header>
 
     <nav>
-        <a href="${pageContext.request.contextPath}/carrinho.jsp">Meu Carrinho</a>
+        <a href="${pageContext.request.contextPath}/carrinho.jsp" id="link-carrinho">
+            Meu Carrinho
+        </a>
     </nav>
 
     <div class="container">
         <div class="main-content">
             <h2>Produtos Disponíveis</h2>
-            <div class="product-list">
-                <c:if test="${empty listaProdutos}">
-                    <p>Não há produtos disponíveis no momento.</p>
-                </c:if>
-                <c:forEach var="produto" items="${listaProdutos}">
-                    <div class="product-card">
-                        <c:if test="${not empty produto.fotoBytes}">
-                            <img src="${pageContext.request.contextPath}/imagem?id=${produto.id}" alt="<c:out value='${produto.descricao}'/>">
-                        </c:if>
-                        <h3><c:out value="${produto.descricao}" /></h3>
-                        <p class="price">
-                            <fmt:setLocale value="pt_BR"/>
-                            <fmt:formatNumber value="${produto.preco}" type="currency"/>
-                        </p>
-                        <button onclick="adicionarAoCarrinho(${produto.id})">Adicionar ao Carrinho</button>
-                    </div>
-                </c:forEach>
+            <div class="product-list" id="product-list">
+                <div id="loading-produtos" style="width:100%;text-align:center;padding:2rem;">
+                    <span style="font-size:1.2rem;color:#888;">Carregando produtos...</span>
+                    <br>
+                    <span class="loader" style="display:inline-block;width:32px;height:32px;border:4px solid #eee;border-top:4px solid #3498db;border-radius:50%;animation:spin 1s linear infinite;"></span>
+                </div>
             </div>
         </div>
 
@@ -110,10 +105,50 @@
     </footer>
 
     <script>
+        var CONTEXTO = '<%= request.getContextPath() %>';
         function adicionarAoCarrinho(id) {
-            // Implementar a lógica para adicionar ao carrinho, possivelmente com AJAX
-            console.log("Adicionar produto com ID: " + id);
+            // Busca dados do produto na tela
+            const card = document.querySelector('.product-card button[onclick="adicionarAoCarrinho(' + id + ')"]').closest('.product-card');
+            const descricao = card.querySelector('h3').textContent;
+            const preco = parseFloat(card.querySelector('.price').textContent.replace(/[^\d,]/g, '').replace(',', '.')) || 0;
+            // Envia para o servlet via fetch
+            fetch(CONTEXTO + '/CarrinhoServlet', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id, descricao, preco, quantidade: 1 })
+            }).then(() => {
+                alert('Produto adicionado ao carrinho!');
+            });
         }
+
+        function carregarListaProdutos() {
+            const productList = document.getElementById('product-list');
+            if (productList) {
+                productList.innerHTML = `
+                    <div id="loading-produtos" style="width:100%;text-align:center;padding:2rem;">
+                        <span style="font-size:1.2rem;color:#888;">Carregando produtos...</span>
+                        <br>
+                        <span class="loader" style="display:inline-block;width:32px;height:32px;border:4px solid #eee;border-top:4px solid #3498db;border-radius:50%;animation:spin 1s linear infinite;"></span>
+                    </div>
+                `;
+            }
+            fetch(CONTEXTO + '/produtos?action=listar')
+                .then(response => response.text())
+                .then(html => {
+                    if (productList) {
+                        productList.innerHTML = html || "<p>Não há produtos disponíveis no momento.</p>";
+                    }
+                })
+                .catch(() => {
+                    if (productList) {
+                        productList.innerHTML = "<p>Erro ao carregar lista de produtos.</p>";
+                    }
+                });
+        }
+
+        window.onload = function() {
+            carregarListaProdutos();
+        };
 
         if (document.getElementById('login-form')) {
             document.getElementById('login-form').addEventListener('submit', function(event) {

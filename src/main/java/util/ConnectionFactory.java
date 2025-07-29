@@ -3,11 +3,12 @@ package util;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import config.Config;
 
 public class ConnectionFactory {
     private static final String JDBC_URL = "jdbc:postgresql://localhost:5432/251web";
-    private static final String JDBC_USUARIO = "postgres";
-    private static final String JDBC_SENHA = "1234";
+    private static final String JDBC_USUARIO = Config.JDBC_USUARIO;
+    private static final String JDBC_SENHA = Config.JDBC_SENHA;
 
     static {
         try {

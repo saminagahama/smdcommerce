@@ -27,12 +27,9 @@ public class ProdutoServlet extends HttpServlet {
 
 		try {
 			switch(action) {
-				case "novo":
+				case  "listar":
+					listarTodosProdutos(request, response);
 					break;
-				default:
-					case "listar":
-						listarTodosProdutos(request, response);
-						break;
 			}
 		} catch (ServletException e) {
 			e.printStackTrace();
@@ -43,14 +40,14 @@ public class ProdutoServlet extends HttpServlet {
 	
 	private void listarTodosProdutos(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-		List<Produto> produtos = ProdutoDAO.listar();
+		List<Produto> produtos = ProdutoDAO.listarDisponiveis();
 		response.setContentType("text/html;charset=UTF-8");
 		if (produtos == null || produtos.isEmpty()) {
 			response.getWriter().write("");
 			return;
 		}
 		request.setAttribute("produtos", produtos);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/gradeproduto.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/grade-produto.jsp");
         dispatcher.include(request, response);
 	}
 }

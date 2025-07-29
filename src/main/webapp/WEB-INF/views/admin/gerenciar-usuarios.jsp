@@ -79,6 +79,7 @@
                 </c:forEach>
             </tbody>
         </table>
+        <a href="${pageContext.request.contextPath}/" class="back-link">Voltar para a Página Inicial</a>
     </div>
 </body>
 </html>

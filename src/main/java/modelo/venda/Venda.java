@@ -1,13 +1,19 @@
 package modelo.venda;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import modelo.usuario.Usuario;
+import modelo.venda_produto.VendaProduto;
 
 public class Venda {
 	private int id;
 	private LocalDateTime data_hora;
 	private Usuario usuario;
+	private BigDecimal valor_total;
+
+	private List<VendaProduto> itens;
 
 	public Usuario getUsuario() {
 		return usuario;
@@ -26,5 +32,17 @@ public class Venda {
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	public BigDecimal getValor_total() {
+		return valor_total;
+	}
+	public void setValor_total(BigDecimal valor_total) {
+		this.valor_total = valor_total;
+	}
+	public List<VendaProduto> getItens() {
+		return itens;
+	}
+	public void setItens(List<VendaProduto> itens) {
+		this.itens = itens;
 	}
 }

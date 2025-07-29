@@ -23,7 +23,7 @@ public class ProdutoDAO {
      * Método auxiliar para extrair um objeto Produto do ResultSet.
      * Isso evita duplicação de código nos métodos de listagem.
      */
-    private Produto extrairProdutoDoResultSet(ResultSet rs) throws SQLException {
+    private static Produto extrairProdutoDoResultSet(ResultSet rs) throws SQLException {
         Produto produto = new Produto();
         produto.setId(rs.getInt("id"));
         produto.setDescricao(rs.getString("descricao"));
@@ -57,7 +57,7 @@ public class ProdutoDAO {
         return produtos;
     }
 
-    public List<Produto> listarDisponiveis() {
+    public static List<Produto> listarDisponiveis() {
         List<Produto> produtos = new ArrayList<>();
         String sql = "SELECT p.id, p.descricao, p.preco, p.foto, p.quantidade, c.id as categoria_id, c.descricao as categoria_descricao " +
                 "FROM Produto p INNER JOIN Categoria c ON p.categoria_id = c.id WHERE p.quantidade > 0 ORDER BY p.id";

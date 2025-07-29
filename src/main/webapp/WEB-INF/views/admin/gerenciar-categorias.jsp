@@ -66,7 +66,7 @@
             </c:forEach>
         </tbody>
     </table>
-    <a href="${pageContext.request.contextPath}/admin/admin.jsp" class="back-link">Voltar ao Painel</a>
+    <a href="${pageContext.request.contextPath}/" class="back-link">Voltar para a Página Inicial</a>
 </div>
 
 <script>
