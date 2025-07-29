@@ -14,6 +14,7 @@
   <c:if test="${usuario.administrador}">
     <h3>Menu do administrador</h3>
     <a href="${pageContext.request.contextPath}/admin/relatorios">Relatórios</a>
+    <a href="${pageContext.request.contextPath}/admin/vendas">Gerenciar vendas</a>
     <a href="${pageContext.request.contextPath}/admin/produtos">Gerenciar produtos</a>
     <a href="${pageContext.request.contextPath}/admin/categorias">Gerenciar categorias</a>
     <a href="${pageContext.request.contextPath}/admin/usuarios">Gerenciar usuários</a>

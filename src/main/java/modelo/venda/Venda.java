@@ -14,6 +14,8 @@ public class Venda {
 	private BigDecimal valor_total;
 
 	private String dataFormatada;
+	public String getDataFormatada() { return dataFormatada; }
+	public void setDataFormatada(String dataFormatada) { this.dataFormatada = dataFormatada; }
 	private List<VendaProduto> itens;
 
 	public Usuario getUsuario() {
@@ -27,12 +29,6 @@ public class Venda {
 	}
 	public void setData_hora(LocalDateTime data_hora) {
 		this.data_hora = data_hora;
-	}
-	public void setDataFormatada(String dataFormatada) {
-		this.dataFormatada = dataFormatada;
-	}
-	public String getDataFormatada() {
-		return this.dataFormatada;
 	}
 	public int getId() {
 		return id;

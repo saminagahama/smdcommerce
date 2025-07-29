@@ -65,4 +65,32 @@ public class VendaDAO {
         }
         return vendas;
     }
+
+    public List<Venda> listarTodas() {
+        List<Venda> vendas = new ArrayList<>();
+        String sql = "SELECT v.id, v.data_hora, v.usuario_id, v.valor_total, u.nome, u.email " +
+                     "FROM venda v INNER JOIN usuario u ON v.usuario_id = u.id ORDER BY v.data_hora DESC";
+        try (Connection conn = ConnectionFactory.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                Venda venda = new Venda();
+                venda.setId(rs.getInt("id"));
+                venda.setData_hora(rs.getTimestamp("data_hora").toLocalDateTime());
+                venda.setValor_total(rs.getBigDecimal("valor_total"));
+                modelo.usuario.Usuario usuario = new modelo.usuario.Usuario();
+                usuario.setId(rs.getInt("usuario_id"));
+                usuario.setNome(rs.getString("nome"));
+                usuario.setEmail(rs.getString("email"));
+                venda.setUsuario(usuario);
+                // Busca os itens da venda
+                VendaProdutoDAO vendaProdutoDAO = new VendaProdutoDAO();
+                venda.setItens(vendaProdutoDAO.listarPorVenda(venda.getId()));
+                vendas.add(venda);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return vendas;
+    }
 }

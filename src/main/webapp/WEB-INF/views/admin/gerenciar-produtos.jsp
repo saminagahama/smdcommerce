@@ -76,7 +76,7 @@
                         <td>${p.id}</td>
                         <td>
                             <c:if test="${not empty p.fotoBytes}">
-                                <img src="${pageContext.request.contextPath}/imagem?id=${p.id}" alt="<c:out value='${p.descricao}'/>" />
+                                <img src="${pageContext.request.contextPath}/imagem?id=${p.id}" alt="<c:out value='${p.descricao}'/>" style="max-width: 120px;" />
                             </c:if>
                         </td>
                         <td><c:out value="${p.descricao}"/></td>
