@@ -28,9 +28,7 @@
                     <c:forEach var="item" items="${pedido.itens}">
                         <tr>
                             <td>${pedido.id}</td>
-                            <td>
-                                <fmt:formatDate value="${pedido.dataHora}" pattern="dd/MM/yyyy HH:mm"/>
-                            </td>
+                            <td>${pedido.dataFormatada}</td>
                             <td>${item.produto.descricao}</td>
                             <td>${item.quantidade}</td>
                             <td>
