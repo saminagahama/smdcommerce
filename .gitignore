@@ -43,3 +43,4 @@ Thumbs.db # Windows
 *.json.local
 .env
 .env.*
+/build/*

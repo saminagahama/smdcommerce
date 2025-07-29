@@ -42,7 +42,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary">Salvar Alterações</button>
-                    <a href="${contextPath}/admin/usuarios" class="btn btn-secondary">Cancelar</a>
+                    <a href="${contextPath}/" class="btn btn-secondary">Cancelar</a>
                 </form>
             </div>
         </div>

@@ -28,5 +28,4 @@ public class PrincipalServlet extends HttpServlet {
         }
     }
 
-
 }

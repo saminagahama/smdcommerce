@@ -76,7 +76,7 @@
                         <td>${p.id}</td>
                         <td>
                             <c:if test="${not empty p.fotoBytes}">
-                                <img src="${pageContext.request.contextPath}/imagem?id=${p.id}" alt="<c:out value='${p.descricao}'/>" />
+                                <img src="${pageContext.request.contextPath}/imagem?id=${p.id}" alt="<c:out value='${p.descricao}'/>" style="max-width: 120px;" />
                             </c:if>
                         </td>
                         <td><c:out value="${p.descricao}"/></td>
@@ -94,7 +94,7 @@
                 </c:forEach>
             </tbody>
         </table>
-        <a href="${pageContext.request.contextPath}/admin/admin.jsp" class="back-link">Voltar ao Painel</a>
+        <a href="${pageContext.request.contextPath}/" class="back-link">Voltar para a Página Inicial</a>
     </div>
 </body>
 </html>

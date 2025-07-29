@@ -54,7 +54,7 @@
 
             <div class="botoes">
                 <button type="submit" class="btn-primario">Salvar Alterações</button>
-                <a href="${pageContext.request.contextPath}/admin" class="btn-secundario">Voltar</a>
+                <a href="${pageContext.request.contextPath}/" class="btn-secundario">Voltar</a>
             </div>
         </form>
 

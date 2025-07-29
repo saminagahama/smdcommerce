@@ -8,7 +8,7 @@
 </head>
 <body>
     <h1>Gerenciar Usuários</h1>
-    <a href="${pageContext.request.contextPath}/admin">Voltar ao painel</a>
+    <a href="${pageContext.request.contextPath}/" class="back-link">Voltar para a Página Inicial</a>
     <table border="1" cellpadding="5">
         <thead>
             <tr>

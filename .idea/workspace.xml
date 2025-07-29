@@ -4,22 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a23b1afb-709f-4261-be80-3b5801204398" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controle/ImagemServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controle/ImagemServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controle/acesso/AuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controle/acesso/AuthenticationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controle/admin/AdminCategoriaServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controle/admin/AdminCategoriaServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controle/admin/AdminPerfilServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controle/admin/AdminPerfilServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controle/admin/AdminProdutoServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controle/admin/AdminProdutoServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controle/admin/AdminUsuarioServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controle/admin/AdminUsuarioServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/modelo/acesso/Token.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/modelo/acesso/Token.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/modelo/acesso/TokenDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/modelo/acesso/TokenDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/modelo/produto/ProdutoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/modelo/produto/ProdutoDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/modelo/usuario/UsuarioDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/modelo/usuario/UsuarioDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/ConnectionFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/ConnectionFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/gerenciar-categorias.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/gerenciar-categorias.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/styles/admin.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/styles/admin.css" afterDir="false" />
-    </list>
+    <list default="true" id="a23b1afb-709f-4261-be80-3b5801204398" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
